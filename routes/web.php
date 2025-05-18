@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(Admin::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::patch('/order/update', [OrderController::class, 'update'])->name('order.update');
-
 });
 
 require __DIR__ . '/auth.php';

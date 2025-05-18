@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where('user_id', Auth::user()->id)->get();
 
         return view('order.index', compact('orders'));
     }
@@ -44,5 +44,17 @@ class OrderController extends Controller
         ]);
 
         return redirect("/");
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'status' => ['required'],
+            'id' => ['required'],
+        ]);
+        Order::where('id', $request->id)->update([
+            'status_id' => $request->status,
+        ]);
+        return redirect()->back();
     }
 }
